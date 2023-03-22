@@ -78,41 +78,18 @@
                 <th>Del</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
+            <tbody id ="tag-tbody-parent">
+              
+
+            </tbody>
+            <tbody style="display: none;">
+              <tr id = "tag-tr-child">
                 <td><input type="checkbox" onchange="" /></td>
-                <td>사과</td>
-                <td>2021-01-01</td>
-                <td class="td-expire"><input type="date" value="2021-02-02" onchange="" /></td>
+                <td name="items-name">사과</td>
+                <td name="items-enter" >2021-01-01</td>
+                <td class="td-expire"><input name="items-expire" type="date" value="2021-02-02" onchange="" /></td>
                 <td class="td-delete">
-                  <button class="button-delete" onclick=""><span class="material-icons">delete</span></button>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" onchange="" /></td>
-                <td>바나나</td>
-                <td>2021-01-01</td>
-                <td class="td-expire"><input type="date" value="2021-02-02" onchange="" /></td>
-                <td class="td-delete">
-                  <button class="button-delete" onclick=""><span class="material-icons">delete</span></button>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" onchange="" /></td>
-                <td>딸기</td>
-                <td>2021-01-01</td>
-                <td class="td-expire"><input type="date" value="2021-02-02" onchange="" /></td>
-                <td class="td-delete">
-                  <button class="button-delete" onclick=""><span class="material-icons">delete</span></button>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" onchange="" /></td>
-                <td>키위</td>
-                <td>2021-01-01</td>
-                <td class="td-expire"><input type="date" value="2021-02-02" onchange="" /></td>
-                <td class="td-delete">
-                  <button class="button-delete" onclick=""><span class="material-icons">delete</span></button>
+                  <button name="items-delete" class="button-delete" onclick=""><span class="material-icons">delete</span></button>
                 </td>
               </tr>
             </tbody>

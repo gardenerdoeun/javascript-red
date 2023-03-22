@@ -55,21 +55,22 @@ const itemsCreate = function(form) {
 };
 const itemsRead = function() {
   axios.get('https://javascript-red-default-rtdb.firebaseio.com/items.json').then(function(response) {
-    const itemsLogical = response.data;
-    items = itemsLogical.items;
-    const tagDivParent = document.getElementById('tag-div-parent');
+    items = response.data;
+    const tagDivParent = document.getElementById('tag-tbody-parent');
     tagDivParent.innerHTML = '';
-    const tagDivChild = document.getElementById('tag-div-child');
-    for (let index in items) {
+    const tagDivChild = document.getElementById('tag-tr-child');
+    let index = 0;
+
+    for (let uid in items) {
       const newDivChild = tagDivChild.cloneNode(true);
       tagDivParent.appendChild(newDivChild);
       const itemsNameObject = document.getElementsByName('items-name')[index];
-      const itemsAgeObject = document.getElementsByName('items-age')[index];
-      const itemsUpdateObject = document.getElementsByName('items-update')[index];
+      const itemsEnterObject = document.getElementsByName('items-enter')[index];
+      const itemsExpireObject = document.getElementsByName('items-expire')[index];
       const itemsDeleteObject = document.getElementsByName('items-delete')[index];
       itemsNameObject.value = items[index].name;
-      itemsAgeObject.value = items[index].age;
-      itemsUpdateObject.index = index;
+      itemsEnterObject.value = items[index].age;
+      itemsExpireObject.index = index;
       itemsDeleteObject.index = index;
     }
     console.log('Read', items);
