@@ -45,7 +45,7 @@ const itemsCreate = function(form) {
   const itemNameObject = form['item-name'];
   const item = {
     name: itemNameObject.value,
-    age: '2023-03-22',
+    enter: '2023-03-22',
     expire: '2023-03-29'
   };
   axios.post('https://javascript-red-default-rtdb.firebaseio.com/items.json', item).then(function() {
@@ -60,18 +60,21 @@ const itemsRead = function() {
     tagDivParent.innerHTML = '';
     const tagDivChild = document.getElementById('tag-tr-child');
     let index = 0;
-
+    
     for (let uid in items) {
       const newDivChild = tagDivChild.cloneNode(true);
       tagDivParent.appendChild(newDivChild);
+      const item = items[uid];
       const itemsNameObject = document.getElementsByName('items-name')[index];
       const itemsEnterObject = document.getElementsByName('items-enter')[index];
       const itemsExpireObject = document.getElementsByName('items-expire')[index];
       const itemsDeleteObject = document.getElementsByName('items-delete')[index];
-      itemsNameObject.value = items[index].name;
-      itemsEnterObject.value = items[index].age;
-      itemsExpireObject.index = index;
+      itemsNameObject.innerHTML =  item.name;
+      itemsEnterObject.innerHTML = item.enter;
+      itemsExpireObject.value = item.expire;
+      // itemsExpireObject.index = index;
       itemsDeleteObject.index = index;
+      index++;
     }
     console.log('Read', items);
   });
