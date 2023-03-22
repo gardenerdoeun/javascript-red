@@ -43,14 +43,13 @@ const ajax = function(method, url, data, callback) {
 
 const itemsCreate = function(form) {
   const itemNameObject = form['item-name'];
-  const itemAgeObject = form['item-age'];
   const item = {
     name: itemNameObject.value,
-    age: itemAgeObject.value
+    age: '2023-03-22',
+    expire: '2023-03-29'
   };
   axios.post('https://javascript-red-default-rtdb.firebaseio.com/items.json', item).then(function() {
     itemNameObject.value = '';
-    itemAgeObject.value = '';
     itemsRead();
   });
 };

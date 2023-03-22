@@ -43,9 +43,11 @@
     </header>
     <div class="contents">
       <article>
-        <form class="form-inputs">
-          <input type="text" name="name" placeholder="Create" />
+        <form class="form-inputs" onsubmit="event.preventDefault(); itemsCreate(this);">
+          
+          <input type="text" name="item-name" placeholder="Create" />
           <button class="button-create"><span class="material-icons">edit</span></button>
+          <!-- 버튼의 기본 타입은 type = "submit" -->
         </form>
         <div class="div-table">
           <table>
