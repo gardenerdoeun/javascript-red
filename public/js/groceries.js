@@ -41,22 +41,31 @@ let groceries;
 
 // };
 
-const groceriesCreate = function(index, uid) {
-  const url = 'https://javascript-red-default-rtdb.firebaseio.com/groceries/'+ uid + '.json';
-  const grocery = {
-    name: document.getElementsByName('items-name')[index].innerText,
-    enter: document.getElementsByName('items-enter')[index].innerText,
-    expire: document.getElementsByName('items-expire')[index].value
-  };
+const groceriesCreate = function(input) {
+  console.log(input);
+  
+  const index = input.index;
+  const uid = input.uid;
+  const checked = input.checked;
+  
+  if(checked){
+    const url = 'https://javascript-red-default-rtdb.firebaseio.com/groceries/'+ uid + '.json';
+    const grocery = {
+      name: document.getElementsByName('items-name')[index].innerText,
+      enter: document.getElementsByName('items-enter')[index].innerText,
+      expire: document.getElementsByName('items-expire')[index].value
+    };
 
-  // post는 무조건 uid까지 생성함
-  // patch 는 uid는 생성안해줌
-  // put은 가지고 있는 걸 미는 개념
-  // patch보단 put을 더 많이 사용
-  axios.put(url, grocery).then(function() {
+    // post는 무조건 uid까지 생성함
+    // patch 는 uid는 생성안해줌
+    // put은 가지고 있는 걸 미는 개념
+    // patch보단 put을 더 많이 사용
+    axios.put(url, grocery).then();
+  }else {
+    groceriesDelete(uid, 'items'); 
+    //axios.delete(url).then(); //axios를 사용할 땐 url 변수를 if문 위에 사용해서 적용 할 수 있도록 수정함
+  }
 
-    //groceriesRead();
-  });
 };
 const groceriesRead = function() {
   axios.get('https://javascript-red-default-rtdb.firebaseio.com/groceries.json').then(function(response) {
@@ -88,9 +97,13 @@ const groceriesRead = function() {
 
 //groceriesRead();
 
-const groceriesDelete = function(uid) {
+const groceriesDelete = function(uid, from) {
   const url = 'https://javascript-red-default-rtdb.firebaseio.com/groceries/'+ uid + '.json';
-   axios.delete(url).then(groceriesRead);
+   axios.delete(url).then(
+    function(){
+      from === 'groceries' && groceriesRead();
+    }
+  );
 };
 
 const groceriesUpdate = function(index, uid) {
