@@ -65,6 +65,7 @@ const itemsRead = function() {
       const newDivChild = tagDivChild.cloneNode(true);
       tagDivParent.appendChild(newDivChild);
       const item = items[uid];
+      const itemsGroceryObject = document.getElementsByName('items-grocery')[index];
       const itemsNameObject = document.getElementsByName('items-name')[index];
       const itemsEnterObject = document.getElementsByName('items-enter')[index];
       const itemsExpireObject = document.getElementsByName('items-expire')[index];
@@ -72,8 +73,11 @@ const itemsRead = function() {
       itemsNameObject.innerHTML =  item.name;
       itemsEnterObject.innerHTML = item.enter;
       itemsExpireObject.value = item.expire;
-      // itemsExpireObject.index = index;
-      itemsDeleteObject.index = index;
+      itemsExpireObject.index = index;
+      itemsExpireObject.uid = uid;
+      itemsDeleteObject.uid = uid;
+      itemsGroceryObject.index = index;
+      itemsGroceryObject.uid = uid;
       index++;
     }
     console.log('Read', items);
@@ -82,20 +86,20 @@ const itemsRead = function() {
 
 itemsRead();
 
-const itemsDelete = function(index) {
-  const url = 'ttps://javascript-red-default-rtdb.firebaseio.com/items.json' + index;
-   axios.delete(url).then(function(){
-    itemsRead();
-  });
+const itemsDelete = function(uid) {
+  const url = 'https://javascript-red-default-rtdb.firebaseio.com/items/'+ uid + '.json';
+   axios.delete(url).then(itemsRead);
 };
 
-const itemsUpdate = function(index) {
-  const url = 'ttps://javascript-red-default-rtdb.firebaseio.com/items.json' + index;
-  const name = document.getElementsByName('items-name')[index].value;
-  const age = document.getElementsByName('items-age')[index].value;
+const itemsUpdate = function(index, uid) {
+  const url = 'https://javascript-red-default-rtdb.firebaseio.com/items/'+ uid + '.json';
+  const name = document.getElementsByName('items-name')[index].innerText;
+  const enter = document.getElementsByName('items-enter')[index].innerText;
+  const expire = document.getElementsByName('items-expire')[index].value;
   const item = {
     name: name,
-    age: age
+    enter: enter,
+    expire: expire
   };
   axios.patch(url, item).then(function(){
     itemsRead();
