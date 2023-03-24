@@ -72,7 +72,8 @@ const itemsRead = function() {
       itemsNameObject.innerHTML =  item.name;
       itemsEnterObject.innerHTML = item.enter;
       itemsExpireObject.value = item.expire;
-      // itemsExpireObject.index = index;
+      itemsExpireObject.index = index;
+      itemsExpireObject.uid = uid;
       itemsDeleteObject.uid = uid;
       index++;
     }
@@ -87,13 +88,15 @@ const itemsDelete = function(uid) {
    axios.delete(url).then(itemsRead);
 };
 
-const itemsUpdate = function(index) {
-  const url = 'https://javascript-red-default-rtdb.firebaseio.com/items.json' + index;
-  const name = document.getElementsByName('items-name')[index].value;
-  const age = document.getElementsByName('items-age')[index].value;
+const itemsUpdate = function(index, uid) {
+  const url = 'https://javascript-red-default-rtdb.firebaseio.com/items/'+ uid + '.json';
+  const name = document.getElementsByName('items-name')[index].innerText;
+  const enter = document.getElementsByName('items-enter')[index].innerText;
+  const expire = document.getElementsByName('items-expire')[index].value;
   const item = {
     name: name,
-    age: age
+    enter: enter,
+    expire: expire
   };
   axios.patch(url, item).then(function(){
     itemsRead();
