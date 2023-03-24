@@ -73,7 +73,7 @@ const itemsRead = function() {
       itemsEnterObject.innerHTML = item.enter;
       itemsExpireObject.value = item.expire;
       // itemsExpireObject.index = index;
-      itemsDeleteObject.index = index;
+      itemsDeleteObject.uid = uid;
       index++;
     }
     console.log('Read', items);
@@ -82,15 +82,13 @@ const itemsRead = function() {
 
 itemsRead();
 
-const itemsDelete = function(index) {
-  const url = 'ttps://javascript-red-default-rtdb.firebaseio.com/items.json' + index;
-   axios.delete(url).then(function(){
-    itemsRead();
-  });
+const itemsDelete = function(uid) {
+  const url = 'https://javascript-red-default-rtdb.firebaseio.com/items/'+ uid + '.json';
+   axios.delete(url).then(itemsRead);
 };
 
 const itemsUpdate = function(index) {
-  const url = 'ttps://javascript-red-default-rtdb.firebaseio.com/items.json' + index;
+  const url = 'https://javascript-red-default-rtdb.firebaseio.com/items.json' + index;
   const name = document.getElementsByName('items-name')[index].value;
   const age = document.getElementsByName('items-age')[index].value;
   const item = {
