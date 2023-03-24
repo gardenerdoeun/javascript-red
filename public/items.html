@@ -10,7 +10,8 @@
   <link href="./index.css" rel="stylesheet">
   <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
   <script defer src="./js/items.js"></script>
-  
+  <script defer src="./js/groceries.js"></script>
+
 </head>
 <body>
   <div class="wrap">
@@ -84,7 +85,7 @@
             </tbody>
             <tbody style="display: none;">
               <tr id = "tag-tr-child">
-                <td><input type="checkbox" onchange="" /></td>
+                <td><input name = "items-grocery" type="checkbox" onchange="groceriesCreate(index, uid)" /></td>
                 <td name="items-name"></td>
                 <td name="items-enter"></td>
                 <td class="td-expire"><input name="items-expire" type="date" value="" onchange="itemsUpdate(index, uid)" /></td>

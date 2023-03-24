@@ -65,6 +65,7 @@ const itemsRead = function() {
       const newDivChild = tagDivChild.cloneNode(true);
       tagDivParent.appendChild(newDivChild);
       const item = items[uid];
+      const itemsGroceryObject = document.getElementsByName('items-grocery')[index];
       const itemsNameObject = document.getElementsByName('items-name')[index];
       const itemsEnterObject = document.getElementsByName('items-enter')[index];
       const itemsExpireObject = document.getElementsByName('items-expire')[index];
@@ -75,6 +76,8 @@ const itemsRead = function() {
       itemsExpireObject.index = index;
       itemsExpireObject.uid = uid;
       itemsDeleteObject.uid = uid;
+      itemsGroceryObject.index = index;
+      itemsGroceryObject.uid = uid;
       index++;
     }
     console.log('Read', items);
