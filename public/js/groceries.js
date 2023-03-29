@@ -115,7 +115,7 @@ const groceriesUpdate = function(index, uid) {
   const url = 'https://javascript-red-default-rtdb.firebaseio.com/groceries/'+ uid + '.json';
   const name = document.getElementsByName('groceries-name')[index].innerText;
   const enter = document.getElementsByName('groceries-enter')[index].innerText;
-  const expire = document.getElementsByName('groceries-expire')[index].value;
+  const expire = document.getElementsByName('groceries-expire')[index].innerText;
   const grocery = {
     name: name,
     enter: enter,
