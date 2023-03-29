@@ -111,11 +111,11 @@ const groceriesDelete = function(uid, callback) {
   );
 };
 
-const groceriesUpdate = function(index, uid) {
+const groceriesUpdate = function(uid) {
   const url = 'https://javascript-red-default-rtdb.firebaseio.com/groceries/'+ uid + '.json';
-  const name = document.getElementsByName('groceries-name')[index].innerText;
-  const enter = document.getElementsByName('groceries-enter')[index].innerText;
-  const expire = document.getElementsByName('groceries-expire')[index].innerText;
+  const name = document.getElementsByName('grocery-name')[0].value;
+  const enter = document.getElementsByName('grocery-enter')[0].value;
+  const expire = document.getElementsByName('grocery-expire')[0].value;
   const grocery = {
     name: name,
     enter: enter,
@@ -123,5 +123,6 @@ const groceriesUpdate = function(index, uid) {
   };
   axios.patch(url, grocery).then(function(){
     groceriesRead();
+    modalToggle();
   });
 };
