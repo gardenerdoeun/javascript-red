@@ -75,6 +75,7 @@ const groceriesRead = function() {
     const tagDivChild = document.getElementById('tag-tr-child');
     let index = 0;
 
+
     for (let uid in groceries) {
       const newDivChild = tagDivChild.cloneNode(true);
       tagDivParent.appendChild(newDivChild);
@@ -82,12 +83,15 @@ const groceriesRead = function() {
       const groceriesNameObject = document.getElementsByName('groceries-name')[index];
       const groceriesEnterObject = document.getElementsByName('groceries-enter')[index];
       const groceriesExpireObject = document.getElementsByName('groceries-expire')[index];
+      const groceriesUpdateObject = document.getElementsByName('groceries-update')[index];
       const groceriesDeleteObject = document.getElementsByName('groceries-delete')[index];
+      const groceriesSequenceObject = document.getElementsByName('groceries-sequence')[index];
+      groceriesSequenceObject.innerHTML = index+1;
       groceriesNameObject.innerHTML =  grocery.name;
       groceriesEnterObject.innerHTML = grocery.enter;
-      groceriesExpireObject.value = grocery.expire;
+      groceriesExpireObject.innerHTML = grocery.expire;
       groceriesExpireObject.index = index;
-      groceriesExpireObject.uid = uid;
+      groceriesUpdateObject.uid = uid;
       groceriesDeleteObject.uid = uid;
       index++;
     }
