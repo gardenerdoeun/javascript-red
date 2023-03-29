@@ -53,6 +53,7 @@ const itemsCreate = function(form) {
     itemsRead();
   });
 };
+
 const itemsRead = function() {
   axios.get('https://javascript-red-default-rtdb.firebaseio.com/items.json').then(function(response) {
     items = response.data;

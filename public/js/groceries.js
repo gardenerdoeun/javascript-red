@@ -97,11 +97,12 @@ const groceriesRead = function() {
 
 //groceriesRead();
 
-const groceriesDelete = function(uid, from) {
+const groceriesDelete = function(uid, callback) {
   const url = 'https://javascript-red-default-rtdb.firebaseio.com/groceries/'+ uid + '.json';
    axios.delete(url).then(
     function(){
-      from === 'groceries' && groceriesRead();
+      //from === 'groceries' && groceriesRead();
+      callback && callback();
     }
   );
 };
