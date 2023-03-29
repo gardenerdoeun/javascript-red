@@ -87,7 +87,7 @@
                 <td name ="groceries-enter"></td>
                 <td name ="groceries-expire"></td>
                 <td class="td-update">
-                  <button name="groceries-update" class="button-update" onclick="modalToggle();"><span class="material-icons">edit_note</span></button>
+                  <button name="groceries-update" class="button-update" onclick="modalToggle(index);"><span class="material-icons">edit_note</span></button>
                 </td>
                 <td class="td-delete">
                   <button name = "groceries-delete" class="button-delete" onclick="groceriesDelete(uid, groceriesRead);"><span class="material-icons">delete</span></button>
@@ -137,9 +137,20 @@
 const accountToggle = function() {
   document.getElementsByClassName('account-menu')[0].classList.toggle('active');
 }
-const modalToggle = function() {
+const modalToggle = function(index) {
   document.body.classList.toggle('o-hidden');
   document.getElementsByClassName('modal-background')[0].classList.toggle('active');
+
+  // index 값을 undefined를 받을 경우 return; 해줌
+  if(index === undefined) return;
+  // index 값으로 모달창 정보 넣기
+  const groceryNameObject = document.getElementsByName('grocery-name')[0];
+  const groceryEnterObject = document.getElementsByName('grocery-enter')[0];
+  const groceryExpireObject = document.getElementsByName('grocery-expire')[0];
+  
+  groceryNameObject.value =  document.getElementsByName('groceries-name')[index].innerHTML;
+  groceryEnterObject.value =  document.getElementsByName('groceries-enter')[index].innerHTML;
+  groceryExpireObject.value =  document.getElementsByName('groceries-expire')[index].innerHTML;
 }
 groceriesRead();
 </script>

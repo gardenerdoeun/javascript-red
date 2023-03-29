@@ -90,7 +90,7 @@ const groceriesRead = function() {
       groceriesNameObject.innerHTML =  grocery.name;
       groceriesEnterObject.innerHTML = grocery.enter;
       groceriesExpireObject.innerHTML = grocery.expire;
-      groceriesExpireObject.index = index;
+      groceriesUpdateObject.index = index;
       groceriesUpdateObject.uid = uid;
       groceriesDeleteObject.uid = uid;
       index++;
