@@ -155,5 +155,10 @@ const modalToggle = function(index) {
   groceryExpireObject.value =  document.getElementsByName('groceries-expire')[index].innerHTML;
   groceryUpdateObject.uid = document.getElementsByName('groceries-update')[index].uid;
 }
-groceriesRead();
+
+// 주소에 쿼리스트링 받아오기
+const queryString = new URLSearchParams(window.location.search);
+const q = queryString.get('q') || ''; // 앞에 조건이 거짓일 경우 뒤에 조건 실행
+
+groceriesRead(q);
 </script>

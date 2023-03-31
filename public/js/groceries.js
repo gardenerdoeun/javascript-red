@@ -67,33 +67,46 @@ const groceriesCreate = function(input) {
   }
 
 };
-const groceriesRead = function() {
+const groceriesRead = function(q) {
   axios.get('https://javascript-red-default-rtdb.firebaseio.com/groceries.json').then(function(response) {
-    groceries = response.data;
+    // groceries = response.data;
     const tagDivParent = document.getElementById('tag-tbody-parent');
     tagDivParent.innerHTML = '';
     const tagDivChild = document.getElementById('tag-tr-child');
-    let index = 0;
+    
+    const groceries = [];
+    //TODO : q 값에 검색된 데이터 추출
+    for(let uid in response.data){
+      const grocery = response.data[uid];
+      grocery.uid = uid;
+      // TODO : 검색 조건
 
+      // 1) q 가 없으면 모두 담기
+      // 2) name 안의 문자가 q를 포함 한다면  
+      if(grocery.name.includes(q)){
+        groceries.push(grocery);
+      }
+    }
+    console.log(groceries);
 
-    for (let uid in groceries) {
+    for (let index in groceries) {
+      const uid = groceries[index].uid;
       const newDivChild = tagDivChild.cloneNode(true);
       tagDivParent.appendChild(newDivChild);
-      const grocery = groceries[uid];
+      const grocery = groceries[index];
       const groceriesNameObject = document.getElementsByName('groceries-name')[index];
       const groceriesEnterObject = document.getElementsByName('groceries-enter')[index];
       const groceriesExpireObject = document.getElementsByName('groceries-expire')[index];
       const groceriesUpdateObject = document.getElementsByName('groceries-update')[index];
       const groceriesDeleteObject = document.getElementsByName('groceries-delete')[index];
       const groceriesSequenceObject = document.getElementsByName('groceries-sequence')[index];
-      groceriesSequenceObject.innerHTML = index+1;
+      groceriesSequenceObject.innerHTML = Number(index)+1;
       groceriesNameObject.innerHTML =  grocery.name;
       groceriesEnterObject.innerHTML = grocery.enter;
       groceriesExpireObject.innerHTML = grocery.expire;
       groceriesUpdateObject.index = index;
       groceriesUpdateObject.uid = uid;
       groceriesDeleteObject.uid = uid;
-      index++;
     }
     console.log('Read', groceries);
   });
