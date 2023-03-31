@@ -80,14 +80,12 @@ const groceriesRead = function(q) {
       const grocery = response.data[uid];
       grocery.uid = uid;
       // TODO : 검색 조건
-
       // 1) q 가 없으면 모두 담기
       // 2) name 안의 문자가 q를 포함 한다면  
       if(grocery.name.indexOf(q) >= 0){
         groceries.push(grocery);
       }
     }
-    console.log(groceries);
 
     for (let index in groceries) {
       const uid = groceries[index].uid;
