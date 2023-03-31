@@ -160,5 +160,15 @@ const modalToggle = function(index) {
 const queryString = new URLSearchParams(window.location.search);
 const q = queryString.get('q') || ''; // 앞에 조건이 거짓일 경우 뒤에 조건 실행
 
+// html name에 접근
+const qObjects = document.getElementsByName('q');
+const qObject = qObjects[0];
+
+// input 태그에 value 값 넣기
+qObject.value = q;
+
+qObject.focus();
+// inputTextObject.blur();
+
 groceriesRead(q);
 </script>

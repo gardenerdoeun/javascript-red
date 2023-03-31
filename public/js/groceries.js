@@ -83,7 +83,7 @@ const groceriesRead = function(q) {
 
       // 1) q 가 없으면 모두 담기
       // 2) name 안의 문자가 q를 포함 한다면  
-      if(grocery.name.includes(q)){
+      if(grocery.name.indexOf(q) >= 0){
         groceries.push(grocery);
       }
     }
