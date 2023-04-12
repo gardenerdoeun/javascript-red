@@ -67,14 +67,14 @@ const groceriesCreate = function(input) {
   }
 
 };
-const groceriesRead = function(q) {
+const groceriesRead = function(q, orderColumn, orderDirection) {
   axios.get('https://javascript-red-default-rtdb.firebaseio.com/groceries.json').then(function(response) {
     // groceries = response.data;
     const tagDivParent = document.getElementById('tag-tbody-parent');
     tagDivParent.innerHTML = '';
     const tagDivChild = document.getElementById('tag-tr-child');
     
-    const groceries = [];
+    let groceries = [];
     //TODO : q 값에 검색된 데이터 추출
     for(let uid in response.data){
       const grocery = response.data[uid];
@@ -87,6 +87,7 @@ const groceriesRead = function(q) {
       }
     }
 
+    groceries = _.orderBy(groceries, orderColumn, orderDirection);
     for (let index in groceries) {
       const uid = groceries[index].uid;
       const newDivChild = tagDivChild.cloneNode(true);
