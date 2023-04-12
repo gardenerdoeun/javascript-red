@@ -54,22 +54,22 @@
                 <th>
                   <span class="title-names">
                     Name
-                    <span class="material-icons order"><a href="?orderKind=name&orderType=asc">arrow_drop_up</a></span>
-                    <span class="material-icons order"><a href="?orderKind=name&orderType=desc">arrow_drop_down</a></span>
+                    <span class="material-icons" id="order-name-asc" ><a href="?orderColumn=name&orderDirection=asc">arrow_drop_up</a></span>
+                    <span class="material-icons" id="order-name-desc"><a href="?orderColumn=name&orderDirection=desc">arrow_drop_down</a></span>
                   </span>
                 </th>
                 <th>
                   <span class="title-names">
                     Enter
-                    <span class="material-icons order"><a href="?orderKind=enter&orderType=asc">arrow_drop_up</a></span>
-                    <span class="material-icons order"><a href="?orderKind=enter&orderType=desc">arrow_drop_down</a></span>
+                    <span class="material-icons" id="order-enter-asc"><a href="?orderColumn=enter&orderDirection=asc">arrow_drop_up</a></span>
+                    <span class="material-icons" id="order-enter-desc"><a href="?orderColumn=enter&orderDirection=desc">arrow_drop_down</a></span>
                   </span>
                 </th>
                 <th>
                   <span class="title-names">
                     Expire
-                    <span class="material-icons order"><a href="?orderKind=expire&orderType=asc">arrow_drop_up</a></span>
-                    <span class="material-icons order"><a href="?orderKind=expire&orderType=desc">arrow_drop_down</a></span>
+                    <span class="material-icons" id="order-expire-asc"><a href="?orderColumn=expire&orderDirection=asc">arrow_drop_up</a></span>
+                    <span class="material-icons" id="order-expire-desc"><a href="?orderColumn=expire&orderDirection=desc">arrow_drop_down</a></span>
                   </span>
                 </th>
                 <th>Edit</th>
@@ -157,9 +157,9 @@ const modalToggle = function(index) {
 const queryString = new URLSearchParams(window.location.search);
 const q = queryString.get('q') || ''; // 앞에 조건이 거짓일 경우 뒤에 조건 실행
 
-const orderKind = queryString.get('orderKind') || ''; // 앞에 조건이 거짓일 경우 뒤에 조건 실행
-const orderType = queryString.get('orderType') || ''; // 앞에 조건이 거짓일 경우 뒤에 조건 실행
-//console.warn(orderKind, orderType);
+const orderColumn = queryString.get('orderColumn') || 'name'; // 앞에 조건이 거짓일 경우 뒤에 조건 실행
+const orderDirection = queryString.get('orderDirection') || 'asc'; // 앞에 조건이 거짓일 경우 뒤에 조건 실행
+//console.warn(orderColumn, orderDirection);
 
 // html name에 접근
 const qObjects = document.getElementsByName('q');
@@ -172,20 +172,22 @@ qObject.focus();
 // inputTextObject.blur();
 
 // 정렬 버튼 active 시키기
-const orderObjects = document.getElementsByClassName("order");
-if(orderKind === 'name' && orderType === 'asc'){
-  orderObjects[0].classList.add('active');
-}else if(orderKind === 'name' && orderType === 'desc'){
-  orderObjects[1].classList.add('active');
-}else if(orderKind === 'enter' && orderType === 'asc'){
-  orderObjects[2].classList.add('active');
-}else if(orderKind === 'enter' && orderType === 'desc'){
-  orderObjects[3].classList.add('active');
-}else if(orderKind === 'expire' && orderType === 'asc'){
-  orderObjects[4].classList.add('active');
-}else if(orderKind === 'expire' && orderType === 'desc'){
-  orderObjects[5].classList.add('active');
-}
+document.getElementById('order-' + orderColumn + '-' + orderDirection).classList.add('active');
+
+// //document.getElementsByClassName("order");
+// if(orderColumn === 'name' && orderDirection === 'asc'){
+//   orderObjects[0].classList.add('active');
+// }else if(orderColumn === 'name' && orderDirection === 'desc'){
+//   orderObjects[1].classList.add('active');
+// }else if(orderColumn === 'enter' && orderDirection === 'asc'){
+//   orderObjects[2].classList.add('active');
+// }else if(orderColumn === 'enter' && orderDirection === 'desc'){
+//   orderObjects[3].classList.add('active');
+// }else if(orderColumn === 'expire' && orderDirection === 'asc'){
+//   orderObjects[4].classList.add('active');
+// }else if(orderColumn === 'expire' && orderDirection === 'desc'){
+//   orderObjects[5].classList.add('active');
+// }
 
 groceriesRead(q);
 </script>
