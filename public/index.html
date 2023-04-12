@@ -7,6 +7,10 @@
   <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
+  <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+  <script src="https://momentjs.com/downloads/moment.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+  <script src="./js/groceries.js"></script>
   <link href="./index.css" rel="stylesheet">
 </head>
 <body>
@@ -52,4 +56,5 @@
 const accountToggle = function() {
   document.getElementsByClassName('account-menu')[0].classList.toggle('active');
 }
+groceriesRead('', '', '');
 </script>

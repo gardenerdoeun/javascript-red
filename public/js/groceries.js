@@ -67,14 +67,18 @@ const groceriesCreate = function(input) {
   }
 
 };
-const groceriesRead = function(q) {
+const groceriesRead = function(q, orderColumn, orderDirection) {
   axios.get('https://javascript-red-default-rtdb.firebaseio.com/groceries.json').then(function(response) {
     // groceries = response.data;
-    const tagDivParent = document.getElementById('tag-tbody-parent');
-    tagDivParent.innerHTML = '';
-    const tagDivChild = document.getElementById('tag-tr-child');
-    
-    const groceries = [];
+    let tagDivParent;
+    let tagDivChild;
+    if(document.getElementById('tag-tbody-parent')){
+     tagDivParent = document.getElementById('tag-tbody-parent');
+     tagDivParent.innerHTML = '';
+     tagDivChild = document.getElementById('tag-tr-child');
+    }
+
+    let groceries = [];
     //TODO : q 값에 검색된 데이터 추출
     for(let uid in response.data){
       const grocery = response.data[uid];
@@ -87,11 +91,19 @@ const groceriesRead = function(q) {
       }
     }
 
+    groceries = _.orderBy(groceries, orderColumn, orderDirection);
+    let count = 0;
     for (let index in groceries) {
+      const grocery = groceries[index];
+      // 만료일이 D-7일 이전이면 count++
+      if((moment().diff(moment(grocery.expire), 'days') -1) >= -7){
+        count++;
+      }
+      if(document.getElementsByName('groceries-sequence').length == 0) continue;
+      
       const uid = groceries[index].uid;
       const newDivChild = tagDivChild.cloneNode(true);
       tagDivParent.appendChild(newDivChild);
-      const grocery = groceries[index];
       const groceriesNameObject = document.getElementsByName('groceries-name')[index];
       const groceriesEnterObject = document.getElementsByName('groceries-enter')[index];
       const groceriesExpireObject = document.getElementsByName('groceries-expire')[index];
@@ -106,6 +118,7 @@ const groceriesRead = function(q) {
       groceriesUpdateObject.uid = uid;
       groceriesDeleteObject.uid = uid;
     }
+    document.getElementById('menu-groceries-counter').innerHTML = count;
     console.log('Read', groceries);
   });
 };
