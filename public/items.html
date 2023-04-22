@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welcome to Refrigerator Expiry Date</title>
+  <link href="./index.css" rel="stylesheet">
   <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
-  <link href="./index.css" rel="stylesheet">
   <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
   <script src="https://momentjs.com/downloads/moment.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
@@ -36,10 +36,10 @@
         <a href="#" id="menu-a-account" onclick="event.preventDefault(); accountToggle();">
           <span class="material-icons-outlined">account_circle</span>
           <ul class="account-menu">
-            <li>Guest</li>
-            <li>Login</li>
-            <li>Hello 홍길동!</li>
-            <li>Logout</li>
+            <li id="login-guest">Guest</li>
+            <li id="login">Login</li>
+            <li id="hello">Hello 홍길동!</li>
+            <li id="logout">Logout</li>
           </ul>
         </a>
       </div>

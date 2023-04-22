@@ -1,9 +1,17 @@
 firebase.auth().onAuthStateChanged(function(firebaseUser) {
     console.log(firebaseUser); // 로그인이 안 됐을 땐 null 값 반환
     if (firebaseUser) {
-      document.getElementById('login-display').innerHTML = firebaseUser.email + ' 반가워요!';
+        document.getElementById('login-guest').style.display = 'none';
+        document.getElementById('login').style.display = 'none'
+        document.getElementById('hello').style.display = 'block'
+        document.getElementById('logout').style.display = 'block'
+        document.getElementById('hello').innerHTML = 'Hello ' + firebaseUser.email + '!';
     } else {
-      document.getElementById('login-display').innerHTML = '';
+        document.getElementById('login-guest').style.display = 'block';
+        document.getElementById('login').style.display = 'block'
+        document.getElementById('hello').style.display = 'none'
+        document.getElementById('logout').style.display = 'none'
+    //   document.getElementById('login-display').innerHTML = '';
     }
   });
   
@@ -28,6 +36,15 @@ firebase.auth().onAuthStateChanged(function(firebaseUser) {
   const emailSignIn = function(form) {
     const email = form['signIn-email'].value
     const password = form['signIn-password'].value
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+      console.error(error);
+      alert(error.message);
+    });
+  };
+
+  const guestSignIn = function() {
+    const email = 'guest@guest.com';
+    const password = 'guestguest';
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
       console.error(error);
       alert(error.message);
