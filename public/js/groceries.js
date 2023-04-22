@@ -70,13 +70,6 @@ const groceriesCreate = function(input) {
 const groceriesRead = function(q, orderColumn, orderDirection) {
   axios.get('https://javascript-red-default-rtdb.firebaseio.com/groceries.json').then(function(response) {
     // groceries = response.data;
-    let tagDivParent;
-    let tagDivChild;
-    if(document.getElementById('tag-tbody-parent')){
-     tagDivParent = document.getElementById('tag-tbody-parent');
-     tagDivParent.innerHTML = '';
-     tagDivChild = document.getElementById('tag-tr-child');
-    }
 
     let groceries = [];
     //TODO : q 값에 검색된 데이터 추출
@@ -91,7 +84,10 @@ const groceriesRead = function(q, orderColumn, orderDirection) {
       }
     }
 
-    groceries = _.orderBy(groceries, orderColumn, orderDirection);
+
+    //성능 확인
+    console.time('start'); // 성능 속도 측정 시작할 때 사용
+    //카운트
     let count = 0;
     for (let index in groceries) {
       const grocery = groceries[index];
@@ -99,11 +95,24 @@ const groceriesRead = function(q, orderColumn, orderDirection) {
       if((moment().diff(moment(grocery.expire), 'days') -1) >= -7){
         count++;
       }
-      if(document.getElementsByName('groceries-sequence').length == 0) continue;
-      
-      const uid = groceries[index].uid;
+    }
+
+    //카운트 넣기
+    document.getElementById('menu-groceries-counter').innerHTML = count;
+    if(document.getElementsByName('groceries-sequence').length == 0) return;
+    console.timeEnd('start');// 성능 속도 측정 끝낼때 사용 (속도가 500ms 이상일 때는 성능에 문제가 있는거임 )
+
+    groceries = _.orderBy(groceries, orderColumn, orderDirection);
+
+    //화면 그리기
+    const tagDivParent = document.getElementById('tag-tbody-parent');
+    tagDivParent.innerHTML = '';
+    const tagDivChild = document.getElementById('tag-tr-child');
+    for (let index in groceries) {
       const newDivChild = tagDivChild.cloneNode(true);
       tagDivParent.appendChild(newDivChild);
+      const grocery = groceries[index];
+      const uid = groceries[index].uid;
       const groceriesNameObject = document.getElementsByName('groceries-name')[index];
       const groceriesEnterObject = document.getElementsByName('groceries-enter')[index];
       const groceriesExpireObject = document.getElementsByName('groceries-expire')[index];
@@ -118,8 +127,7 @@ const groceriesRead = function(q, orderColumn, orderDirection) {
       groceriesUpdateObject.uid = uid;
       groceriesDeleteObject.uid = uid;
     }
-    document.getElementById('menu-groceries-counter').innerHTML = count;
-    console.log('Read', groceries);
+
   });
 };
 
