@@ -6,6 +6,7 @@ firebase.auth().onAuthStateChanged(function(firebaseUser) {
         document.getElementById('hello').style.display = 'block'
         document.getElementById('logout').style.display = 'block'
         document.getElementById('hello').innerHTML = 'Hello ' + firebaseUser.email + '!';
+        firebaseAfterLogin();
     } else {
         document.getElementById('login-guest').style.display = 'block';
         document.getElementById('login').style.display = 'block'

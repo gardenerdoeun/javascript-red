@@ -11,6 +11,12 @@
   <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
   <script src="https://momentjs.com/downloads/moment.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+  <!-- firebase 자체 제공 start-->
+  <script defer src="/__/firebase/9.20.0/firebase-app-compat.js"></script> 
+  <script defer src="/__/firebase/9.20.0/firebase-auth-compat.js"></script>
+  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  <!-- firebase 자체 제공 end-->
+  <script defer src="./js/firebaseLogin.js"></script>
   <script defer src="./js/items.js"></script>
   <script src="./js/groceries.js"></script>
 
@@ -36,10 +42,10 @@
         <a href="#" id="menu-a-account" onclick="event.preventDefault(); accountToggle();">
           <span class="material-icons-outlined">account_circle</span>
           <ul class="account-menu">
-            <li id="login-guest">Guest</li>
-            <li id="login">Login</li>
-            <li id="hello">Hello 홍길동!</li>
-            <li id="logout">Logout</li>
+            <li id="login-guest" onclick="guestSignIn()">Guest</li>
+            <li id="login" onclick="googleLogin()">Login</li>
+            <li id="hello"></li>
+            <li id="logout" onclick="googleLogout()">Logout</li>
           </ul>
         </a>
       </div>
@@ -108,5 +114,8 @@
 const accountToggle = function() {
   document.getElementsByClassName('account-menu')[0].classList.toggle('active');
 }
-groceriesRead('', '', '');
+
+const firebaseAfterLogin = function (){
+  groceriesRead('', '', '');
+}
 </script>
