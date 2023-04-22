@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firebase Login</title>
+  <!-- firebase 자체 제공 start-->
+  <script defer src="/__/firebase/9.20.0/firebase-app-compat.js"></script> 
+  <script defer src="/__/firebase/9.20.0/firebase-auth-compat.js"></script>
+  <!-- firebase 자체 제공 end-->
+  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  <script defer src="./js/firebaseLogin.js"></script>
+</head>
+<body>
+  <div id="login-display"></div>
+  <div>
+    <h2>Google Logout</h2>
+    <button onclick="googleLogout()">Google Logout</button>
+  </div>
+  <div>
+    <h2>Google Login</h2>
+    <button onclick="googleLogin()">Google Login</button>
+  </div>
+  <div>
+    <h2>Email Sign up</h2>
+    <form onsubmit="emailSignUp(this); return false;">
+      <input type="email" name="signUp-email">
+      <input type="password" name="signUp-password">
+      <input type="submit" value="Email Signup">
+    </form>
+  </div>
+  <div>
+    <h2>Email Sign in</h2>
+    <form onsubmit="emailSignIn(this); return false;">
+      <input type="email" name="signIn-email">
+      <input type="password" name="signIn-password">
+      <input type="submit" value="Email Signin">
+    </form>
+  </div>
+</body>
+</html>
