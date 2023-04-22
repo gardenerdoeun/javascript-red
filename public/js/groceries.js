@@ -96,11 +96,11 @@ const groceriesRead = function(q, orderColumn, orderDirection) {
         count++;
       }
     }
-
+    
     //카운트 넣기
     document.getElementById('menu-groceries-counter').innerHTML = count;
-    if(document.getElementsByName('groceries-sequence').length == 0) return;
     console.timeEnd('start');// 성능 속도 측정 끝낼때 사용 (속도가 500ms 이상일 때는 성능에 문제가 있는거임 )
+    if(document.getElementsByName('groceries-sequence').length == 0) return;
 
     groceries = _.orderBy(groceries, orderColumn, orderDirection);
 
