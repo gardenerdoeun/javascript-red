@@ -49,7 +49,7 @@ const groceriesCreate = function(input) {
   const checked = input.checked;
   
   if(checked){
-    const url = 'https://javascript-red-default-rtdb.firebaseio.com/groceries/'+ uid + '.json';
+    const url = 'https://javascript-red-default-rtdb.firebaseio.com/'+firebaseUser.uid +'/groceries/'+ uid + '.json';
     const grocery = {
       name: document.getElementsByName('items-name')[index].innerText,
       enter: document.getElementsByName('items-enter')[index].innerText,
@@ -68,7 +68,7 @@ const groceriesCreate = function(input) {
 
 };
 const groceriesRead = function(q, orderColumn, orderDirection) {
-  axios.get('https://javascript-red-default-rtdb.firebaseio.com/groceries.json').then(function(response) {
+  axios.get('https://javascript-red-default-rtdb.firebaseio.com/'+firebaseUser.uid +'/groceries.json').then(function(response) {
     // groceries = response.data;
 
     let groceries = [];
@@ -134,7 +134,7 @@ const groceriesRead = function(q, orderColumn, orderDirection) {
 //groceriesRead();
 
 const groceriesDelete = function(uid, callback) {
-  const url = 'https://javascript-red-default-rtdb.firebaseio.com/groceries/'+ uid + '.json';
+  const url = 'https://javascript-red-default-rtdb.firebaseio.com/'+firebaseUser.uid +'/groceries/'+ uid + '.json';
    axios.delete(url).then(
     function(){
       //from === 'groceries' && groceriesRead();
@@ -144,7 +144,7 @@ const groceriesDelete = function(uid, callback) {
 };
 
 const groceriesUpdate = function(uid) {
-  const url = 'https://javascript-red-default-rtdb.firebaseio.com/groceries/'+ uid + '.json';
+  const url = 'https://javascript-red-default-rtdb.firebaseio.com/'+firebaseUser.uid +'/groceries/'+ uid + '.json';
   const name = document.getElementsByName('grocery-name')[0].value;
   const enter = document.getElementsByName('grocery-enter')[0].value;
   const expire = document.getElementsByName('grocery-expire')[0].value;
@@ -154,7 +154,7 @@ const groceriesUpdate = function(uid) {
     expire: expire
   };
   axios.patch(url, grocery).then(function(){
-    groceriesRead();
+    firebaseAfterLogin();
     modalToggle();
   });
 };
