@@ -84,6 +84,26 @@ const groceriesRead = function(q, orderColumn, orderDirection) {
       }
     }
 
+    //items와 비교해서 checkbox 체크하기
+    if(document.location.pathname === '/items.html'){
+      console.log('아이템 있음', items, groceries);
+      let i=0;
+      console.log(i);
+      for(let itemUid in items){
+        //        console.log(itemUid);
+        for(let j in groceries){
+          const grocery = groceries[j];
+          //          console.log(grocery.uid);
+          if(itemUid === grocery.uid){
+            console.log("둘 값이 같음");
+            document.getElementsByName('items-grocery')[i].checked = true;
+          }
+        }
+        i++;
+        console.log('last', i);
+      }
+
+    }
 
     //성능 확인
     console.time('start'); // 성능 속도 측정 시작할 때 사용
@@ -101,6 +121,7 @@ const groceriesRead = function(q, orderColumn, orderDirection) {
     document.getElementById('menu-groceries-counter').innerHTML = count;
     console.timeEnd('start');// 성능 속도 측정 끝낼때 사용 (속도가 500ms 이상일 때는 성능에 문제가 있는거임 )
     if(document.getElementsByName('groceries-sequence').length == 0) return;
+
 
     groceries = _.orderBy(groceries, orderColumn, orderDirection);
 

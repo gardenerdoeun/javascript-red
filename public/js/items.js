@@ -84,6 +84,7 @@ const itemsRead = function() {
       index++;
     }
     console.log('Read', items);
+    groceriesRead('', '', '');
   });
 };
 
