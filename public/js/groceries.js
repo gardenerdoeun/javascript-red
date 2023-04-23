@@ -90,10 +90,10 @@ const groceriesRead = function(q, orderColumn, orderDirection) {
       let i=0;
       console.log(i);
       for(let itemUid in items){
-        //        console.log(itemUid);
+      // console.log(itemUid);
         for(let j in groceries){
           const grocery = groceries[j];
-          //          console.log(grocery.uid);
+          // console.log(grocery.uid);
           if(itemUid === grocery.uid){
             console.log("둘 값이 같음");
             document.getElementsByName('items-grocery')[i].checked = true;
