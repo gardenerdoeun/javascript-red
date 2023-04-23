@@ -1,5 +1,7 @@
-firebase.auth().onAuthStateChanged(function(firebaseUser) {
+let firebaseUser
+firebase.auth().onAuthStateChanged(function(_firebaseUser) {
     console.log(firebaseUser); // 로그인이 안 됐을 땐 null 값 반환
+    firebaseUser = _firebaseUser;
     if (firebaseUser) {
         document.getElementById('login-guest').style.display = 'none';
         document.getElementById('login').style.display = 'none';
