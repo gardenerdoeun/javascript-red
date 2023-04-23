@@ -42,20 +42,22 @@ const ajax = function(method, url, data, callback) {
 };
 
 const itemsCreate = function(form) {
+  console.log(firebaseUser);
+
   const itemNameObject = form['item-name'];
   const item = {
     name: itemNameObject.value,
     enter: moment().format("YYYY-MM-DD"),
     expire: moment().add(7, 'days').format("YYYY-MM-DD")
   };
-  axios.post('https://javascript-red-default-rtdb.firebaseio.com/items.json', item).then(function() {
+  axios.post('https://javascript-red-default-rtdb.firebaseio.com/'+firebaseUser.uid +'/items.json', item).then(function() {
     itemNameObject.value = '';
     itemsRead();
   });
 };
 
 const itemsRead = function() {
-  axios.get('https://javascript-red-default-rtdb.firebaseio.com/items.json').then(function(response) {
+  axios.get('https://javascript-red-default-rtdb.firebaseio.com/'+firebaseUser.uid +'/items.json').then(function(response) {
     items = response.data;
     const tagDivParent = document.getElementById('tag-tbody-parent');
     tagDivParent.innerHTML = '';
@@ -82,18 +84,19 @@ const itemsRead = function() {
       index++;
     }
     console.log('Read', items);
+    groceriesRead('', '', '');
   });
 };
 
-itemsRead();
+//itemsRead();
 
 const itemsDelete = function(uid) {
-  const url = 'https://javascript-red-default-rtdb.firebaseio.com/items/'+ uid + '.json';
+  const url = 'https://javascript-red-default-rtdb.firebaseio.com/'+firebaseUser.uid +'/items/'+ uid + '.json';
    axios.delete(url).then(itemsRead);
 };
 
 const itemsUpdate = function(index, uid) {
-  const url = 'https://javascript-red-default-rtdb.firebaseio.com/items/'+ uid + '.json';
+  const url = 'https://javascript-red-default-rtdb.firebaseio.com/'+firebaseUser.uid +'/items/'+ uid + '.json';
   const name = document.getElementsByName('items-name')[index].innerText;
   const enter = document.getElementsByName('items-enter')[index].innerText;
   const expire = document.getElementsByName('items-expire')[index].value;

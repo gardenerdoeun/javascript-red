@@ -49,7 +49,7 @@ const groceriesCreate = function(input) {
   const checked = input.checked;
   
   if(checked){
-    const url = 'https://javascript-red-default-rtdb.firebaseio.com/groceries/'+ uid + '.json';
+    const url = 'https://javascript-red-default-rtdb.firebaseio.com/'+firebaseUser.uid +'/groceries/'+ uid + '.json';
     const grocery = {
       name: document.getElementsByName('items-name')[index].innerText,
       enter: document.getElementsByName('items-enter')[index].innerText,
@@ -68,7 +68,7 @@ const groceriesCreate = function(input) {
 
 };
 const groceriesRead = function(q, orderColumn, orderDirection) {
-  axios.get('https://javascript-red-default-rtdb.firebaseio.com/groceries.json').then(function(response) {
+  axios.get('https://javascript-red-default-rtdb.firebaseio.com/'+firebaseUser.uid +'/groceries.json').then(function(response) {
     // groceries = response.data;
 
     let groceries = [];
@@ -84,6 +84,26 @@ const groceriesRead = function(q, orderColumn, orderDirection) {
       }
     }
 
+    //items와 비교해서 checkbox 체크하기
+    if(document.location.pathname === '/items.html'){
+      console.log('아이템 있음', items, groceries);
+      let i=0;
+      console.log(i);
+      for(let itemUid in items){
+      // console.log(itemUid);
+        for(let j in groceries){
+          const grocery = groceries[j];
+          // console.log(grocery.uid);
+          if(itemUid === grocery.uid){
+            console.log("둘 값이 같음");
+            document.getElementsByName('items-grocery')[i].checked = true;
+          }
+        }
+        i++;
+        console.log('last', i);
+      }
+
+    }
 
     //성능 확인
     console.time('start'); // 성능 속도 측정 시작할 때 사용
@@ -101,6 +121,7 @@ const groceriesRead = function(q, orderColumn, orderDirection) {
     document.getElementById('menu-groceries-counter').innerHTML = count;
     console.timeEnd('start');// 성능 속도 측정 끝낼때 사용 (속도가 500ms 이상일 때는 성능에 문제가 있는거임 )
     if(document.getElementsByName('groceries-sequence').length == 0) return;
+
 
     groceries = _.orderBy(groceries, orderColumn, orderDirection);
 
@@ -134,7 +155,7 @@ const groceriesRead = function(q, orderColumn, orderDirection) {
 //groceriesRead();
 
 const groceriesDelete = function(uid, callback) {
-  const url = 'https://javascript-red-default-rtdb.firebaseio.com/groceries/'+ uid + '.json';
+  const url = 'https://javascript-red-default-rtdb.firebaseio.com/'+firebaseUser.uid +'/groceries/'+ uid + '.json';
    axios.delete(url).then(
     function(){
       //from === 'groceries' && groceriesRead();
@@ -144,7 +165,7 @@ const groceriesDelete = function(uid, callback) {
 };
 
 const groceriesUpdate = function(uid) {
-  const url = 'https://javascript-red-default-rtdb.firebaseio.com/groceries/'+ uid + '.json';
+  const url = 'https://javascript-red-default-rtdb.firebaseio.com/'+firebaseUser.uid +'/groceries/'+ uid + '.json';
   const name = document.getElementsByName('grocery-name')[0].value;
   const enter = document.getElementsByName('grocery-enter')[0].value;
   const expire = document.getElementsByName('grocery-expire')[0].value;
@@ -154,7 +175,7 @@ const groceriesUpdate = function(uid) {
     expire: expire
   };
   axios.patch(url, grocery).then(function(){
-    groceriesRead();
+    firebaseAfterLogin();
     modalToggle();
   });
 };
